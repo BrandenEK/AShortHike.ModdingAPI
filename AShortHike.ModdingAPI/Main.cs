@@ -7,16 +7,18 @@ using BepInEx.Logging;
 namespace AShortHike.ModdingAPI;
 
 [BepInPlugin(ModInfo.MOD_ID, ModInfo.MOD_NAME, ModInfo.MOD_VERSION)]
-public class Main : BaseUnityPlugin
+internal class Main : BaseUnityPlugin
 {
+    public static ModLoader ModLoader { get; private set; }
     public static ModdingAPI ModdingAPI { get; private set; }
-    private static ManualLogSource MessageLogger { get; set; }
+    public static ManualLogSource MessageLogger { get; set; }
 
     private void Awake()
     {
-        MessageLogger = Logger;
+        MessageLogger = BepInEx.Logging.Logger.CreateLogSource("Mod Loader");
         AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(LoadMissingAssemblies);
 
+        ModLoader = new ModLoader();
         ModdingAPI = new ModdingAPI();
     }
 

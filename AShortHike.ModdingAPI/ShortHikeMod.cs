@@ -68,22 +68,22 @@ public abstract class ShortHikeMod
     /// <summary>
     /// Called when a new level is loaded, including the main menu
     /// </summary>
-    protected internal virtual void OnLevelLoaded(string oldLevel, string newLevel) { }
+    protected internal virtual void OnLevelLoaded(string level) { }
 
     /// <summary>
     /// Called when an old level is unloaded, including the main menu
     /// </summary>
-    protected internal virtual void OnLevelUnloaded(string oldLevel, string newLevel) { }
+    protected internal virtual void OnLevelUnloaded(string level) { }
 
     /// <summary>
     /// Called when starting a new game on the main menu, after data is reset
     /// </summary>
-    protected internal virtual void OnNewGame() { }
+    protected internal virtual void OnNewGame() { } // TODO
 
     /// <summary>
     /// Called when loading an existing game on the main menu, after data is reset
     /// </summary>
-    protected internal virtual void OnLoadGame() { }
+    protected internal virtual void OnLoadGame() { } // TODO
 
     /// <summary>
     /// Called when quiting a game, after returning to the main menu
@@ -112,10 +112,10 @@ public abstract class ShortHikeMod
         //_localizationHandler = new LocalizationHandler(this);
 
         // Register and patch mod
-        //if (Main.ModLoader.RegisterMod(this))
-        //{
+        if (Main.ModLoader.RegisterMod(this))
+        {
             new Harmony(id).PatchAll(GetType().Assembly);
-        //}
+        }
     }
 
 }
