@@ -78,12 +78,12 @@ public abstract class ShortHikeMod
     /// <summary>
     /// Called when starting a new game on the main menu, after data is reset
     /// </summary>
-    protected internal virtual void OnNewGame() { } // TODO
+    protected internal virtual void OnNewGame() { }
 
     /// <summary>
     /// Called when loading an existing game on the main menu, after data is reset
     /// </summary>
-    protected internal virtual void OnLoadGame() { } // TODO
+    protected internal virtual void OnLoadGame() { }
 
     /// <summary>
     /// Called when quiting a game, after returning to the main menu
