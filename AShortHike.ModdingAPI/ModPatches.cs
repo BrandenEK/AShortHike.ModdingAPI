@@ -21,3 +21,17 @@ class TitleScreen_ContinueGame_Patch
         Main.ModLoader.ProcessModFunction(mod => mod.OnLoadGame());
     }
 }
+
+/// <summary>
+/// Main object is always destroyed so we will update the game through the player in the GameScene
+/// </summary>
+[HarmonyPatch(typeof(Player), "Update")]
+class Player_Update_Patch
+{
+    public static void Postfix() => Main.ModLoader.ProcessModFunction(mod => mod.OnUpdate());
+}
+[HarmonyPatch(typeof(Player), "LateUpdate")]
+class Player_LateUpdate_Patch
+{
+    public static void Postfix() => Main.ModLoader.ProcessModFunction(mod => mod.OnLateUpdate());
+}

@@ -12,6 +12,8 @@ internal class ModLoader
     private bool _initialized = false;
     private bool _loadedMenu = false;
 
+    public string CurrentScene { get; private set; } = string.Empty;
+
     public ModLoader()
     {
         SceneManager.sceneLoaded += LevelLoaded;
@@ -95,6 +97,7 @@ internal class ModLoader
             _loadedMenu = true;
         }
 
+        CurrentScene = scene.name;
         ProcessModFunction(mod => mod.OnLevelLoaded(scene.name));
     }
 
@@ -103,6 +106,7 @@ internal class ModLoader
     /// </summary>
     public void LevelUnloaded(Scene scene)
     {
+        CurrentScene = string.Empty;
         ProcessModFunction(mod => mod.OnLevelUnloaded(scene.name));
     }
 

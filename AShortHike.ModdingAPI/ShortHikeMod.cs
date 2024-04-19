@@ -31,6 +31,13 @@ public abstract class ShortHikeMod
     public string Version => version;
     private readonly string version;
 
+    // Helpers
+
+    /// <summary>
+    /// Handles scene loading, such as checking if on main menu
+    /// </summary>
+    public LoadStatus LoadStatus { get; }
+
     // Handlers
 
     /// <summary>
@@ -103,13 +110,11 @@ public abstract class ShortHikeMod
         this.author = author;
         this.version = version;
 
+        // Set helpers
+        LoadStatus = new LoadStatus();
+
         // Set handlers
         LogHandler = new LogHandler(this);
-
-        //_configHandler = new ConfigHandler(this);
-        //_fileHandler = new FileHandler(this);
-        //_inputHandler = new InputHandler(this);
-        //_localizationHandler = new LocalizationHandler(this);
 
         // Register and patch mod
         if (Main.ModLoader.RegisterMod(this))
