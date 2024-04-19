@@ -1,4 +1,4 @@
-﻿using BepInEx.Logging;
+﻿using AShortHike.ModdingAPI.Logging;
 using HarmonyLib;
 
 namespace AShortHike.ModdingAPI;
@@ -30,6 +30,13 @@ public abstract class ShortHikeMod
     /// </summary>
     public string Version => version;
     private readonly string version;
+
+    // Handlers
+
+    /// <summary>
+    /// Handles logging messages to the console and to a file
+    /// </summary>
+    public LogHandler LogHandler { get; }
 
     // Events
 
@@ -83,23 +90,6 @@ public abstract class ShortHikeMod
     /// </summary>
     protected internal virtual void OnExitGame() { }
 
-    // Logging
-
-    /// <summary>
-    /// Logs a message in white to the console
-    /// </summary>
-    public void Log(object message) => _logger.LogMessage(message);
-
-    /// <summary>
-    /// Logs a message in yellow to the console
-    /// </summary>
-    public void LogWarning(object warning) => _logger.LogWarning(warning);
-
-    /// <summary>
-    /// Logs a message in red to the console
-    /// </summary>
-    public void LogError(object error) => _logger.LogError(error);
-
     // Constructor
 
     /// <summary>
@@ -114,6 +104,8 @@ public abstract class ShortHikeMod
         this.version = version;
 
         // Set handlers
+        LogHandler = new LogHandler(this);
+
         //_configHandler = new ConfigHandler(this);
         //_fileHandler = new FileHandler(this);
         //_inputHandler = new InputHandler(this);
@@ -123,9 +115,7 @@ public abstract class ShortHikeMod
         //if (Main.ModLoader.RegisterMod(this))
         //{
             new Harmony(id).PatchAll(GetType().Assembly);
-            _logger = Logger.CreateLogSource(name);
         //}
     }
 
-    private readonly ManualLogSource _logger;
 }

@@ -7,6 +7,6 @@ public class ModdingAPI : ShortHikeMod
 
     protected internal override void OnInitialize()
     {
-        LogError($"{ModInfo.MOD_NAME} has been initialized");
+        LogHandler.Warning($"{ModInfo.MOD_NAME} has been initialized");
     }
 }
