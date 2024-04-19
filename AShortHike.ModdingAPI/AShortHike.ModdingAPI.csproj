@@ -8,18 +8,21 @@
     <Product>Modding API</Product>
     <Authors>Damocles</Authors>
     <Company>Damocles</Company>
-    <Description>A mod for A Short Hike</Description>
+    <Description>A modding API that assists the creation of mods for A Short Hike</Description>
     <Version>0.1.0</Version>
 
     <TargetName>ModdingAPI</TargetName>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <RepositoryUrl>https://github.com/Example</RepositoryUrl>
+    <RepositoryUrl>https://github.com/BrandenEK/AShortHike.ModdingAPI</RepositoryUrl>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AShortHike.ModdingAPI" Version="0.1.0" />
     <PackageReference Include="AShortHike.ModdingReferences" Version="1.9.24" />
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.29" IncludeAssets="compile" />
   </ItemGroup>
 
   <Target Name="Development" AfterTargets="PostBuildEvent">
