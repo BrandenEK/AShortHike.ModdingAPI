@@ -1,4 +1,5 @@
-﻿using AShortHike.ModdingAPI.Logging;
+﻿using AShortHike.ModdingAPI.Files;
+using AShortHike.ModdingAPI.Logging;
 using HarmonyLib;
 
 namespace AShortHike.ModdingAPI;
@@ -39,6 +40,11 @@ public abstract class ShortHikeMod
     public LoadStatus LoadStatus { get; }
 
     // Handlers
+
+    /// <summary>
+    /// Handles file IO, such as loading data or writing to a file
+    /// </summary>
+    public FileHandler FileHandler { get; }
 
     /// <summary>
     /// Handles logging messages to the console and to a file
@@ -114,6 +120,7 @@ public abstract class ShortHikeMod
         LoadStatus = new LoadStatus();
 
         // Set handlers
+        FileHandler = new FileHandler(this);
         LogHandler = new LogHandler(this);
 
         // Register and patch mod
