@@ -8,6 +8,7 @@ namespace AShortHike.ModdingAPI;
 internal class ModLoader
 {
     private readonly List<ShortHikeMod> _mods = new();
+    public IEnumerable<ShortHikeMod> AllMods => _mods;
 
     private bool _initialized = false;
     private bool _loadedMenu = false;
