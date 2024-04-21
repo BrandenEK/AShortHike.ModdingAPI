@@ -9,40 +9,50 @@ public class ModdingAPI : ShortHikeMod
 {
     public ModdingAPI() : base(ModInfo.MOD_ID, ModInfo.MOD_NAME, ModInfo.MOD_AUTHOR, ModInfo.MOD_VERSION) { }
 
+    private TextMeshProUGUI _modText = null;
+
     protected internal override void OnLevelLoaded(string level)
     {
-        if (level == "TitleScene")
+        if (level == "TitleScene" && _modText == null)
         {
-            // Find canvas
-            Canvas canvas = Object.FindObjectOfType<Canvas>();
-            if (canvas == null)
-                return;
-
-            // Create text for mod list
-            StringBuilder fullText = new();
-            foreach (var mod in Main.ModLoader.AllMods.OrderBy(GetModPriority).ThenBy(x => x.Name))
-            {
-                fullText.AppendLine(GetModText(mod, true));
-            }
-
-            // Create rect transform
-            RectTransform r = new GameObject().AddComponent<RectTransform>();
-            r.name = "Mod list";
-            r.SetParent(canvas.transform, false);
-            r.anchorMin = new Vector2(0, 0);
-            r.anchorMax = new Vector2(1, 1);
-            r.pivot = new Vector2(0, 1);
-            r.anchoredPosition = new Vector2(5, -5);
-            r.sizeDelta = new Vector2(400, 100);
-
-            // Create text
-            TextMeshProUGUI t = r.gameObject.AddComponent<TextMeshProUGUI>();
-            t.text = fullText.ToString();
-            t.alignment = TextAlignmentOptions.TopLeft;
-            t.font = Object.FindObjectOfType<TextMeshProUGUI>().font;
-            t.fontSize = 16;
-            t.richText = true;
+            _modText = CreateModText();
         }
+    }
+
+    private TextMeshProUGUI CreateModText()
+    {
+        // Find canvas and base text
+        Canvas canvas = Object.FindObjectOfType<Canvas>();
+        TextMeshProUGUI text = Object.FindObjectOfType<TextMeshProUGUI>();
+        if (canvas == null || text == null)
+            return null;
+
+        // Create text for mod list
+        StringBuilder fullText = new();
+        foreach (var mod in Main.ModLoader.AllMods.OrderBy(GetModPriority).ThenBy(x => x.Name))
+        {
+            fullText.AppendLine(GetModText(mod, true));
+        }
+
+        // Create rect transform
+        RectTransform r = new GameObject().AddComponent<RectTransform>();
+        r.name = "Mod list";
+        r.SetParent(canvas.transform, false);
+        r.anchorMin = new Vector2(0, 0);
+        r.anchorMax = new Vector2(1, 1);
+        r.pivot = new Vector2(0, 1);
+        r.anchoredPosition = new Vector2(5, -5);
+        r.sizeDelta = new Vector2(400, 100);
+
+        // Create text
+        TextMeshProUGUI t = r.gameObject.AddComponent<TextMeshProUGUI>();
+        t.text = fullText.ToString();
+        t.alignment = TextAlignmentOptions.TopLeft;
+        t.font = text.font;
+        t.fontSize = 16;
+        t.richText = true;
+
+        return t;
     }
 
     private int GetModPriority(ShortHikeMod mod)
