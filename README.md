@@ -2,6 +2,9 @@
 
 ### Features
 
-- Ensures compatibility between all mods
-- Very simple process of installing new mods
-- Standard functionality for mods to take advantage of
+- Provides compatibility and functionality for all mods
+- Displays all loaded mods in the top left corner of the title screen
+
+### Installation
+
+- Follow the instructions on the [Mod Installer](https://github.com/BrandenEK/AShortHike.Modding.Installer) page for automatic or manual installation
