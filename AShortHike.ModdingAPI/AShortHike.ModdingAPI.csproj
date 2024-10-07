@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AShortHike.ModdingReferences" Version="1.9.24" />
+    <PackageReference Include="AShortHike.GameLibs" Version="1.11.17" />
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
