@@ -10,4 +10,3 @@
 
 ## Installation
 This mod is available for download through the [Short Hike Mod Installer](https://github.com/BrandenEK/AShortHike.Modding.Installer)
-- Required dependencies: Modding API
