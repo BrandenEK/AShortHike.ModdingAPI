@@ -16,6 +16,8 @@ public class FileHandler
     private readonly string localizationPath;
     private readonly string outputPath;
 
+    public string DataPath => dataPath;
+
     /// <summary>
     /// The full path of the modding folder
     /// </summary>
@@ -36,7 +38,8 @@ public class FileHandler
     internal FileHandler(ShortHikeMod mod)
     {
         configPath = Path.GetFullPath($"Modding/config/{mod.Name}.cfg");
-        dataPath = Path.GetFullPath($"Modding/data/{mod.Name}/");
+        //dataPath = Path.GetFullPath($"Modding/data/{mod.Name}/");
+        dataPath = Path.Combine(Directory.GetCurrentDirectory(), "Modding", "data", mod.Name);
         keybindingsPath = Path.GetFullPath($"Modding/keybindings/{mod.Name}.txt");
         localizationPath = Path.GetFullPath($"Modding/localization/{mod.Name}.txt");
         outputPath = Path.GetFullPath($"Modding/output/{mod.Name}/");
@@ -106,7 +109,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsText(string fileName, out string output)
     {
-        return ReadFileContents(dataPath + fileName, out output);
+        string path = Path.Combine(dataPath, fileName);
+        return ReadFileContents(path, out output);
     }
 
     /// <summary>
@@ -114,7 +118,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsJson<T>(string fileName, out T output)
     {
-        if (ReadFileContents(dataPath + fileName, out string text))
+        string path = Path.Combine(dataPath, fileName);
+        if (ReadFileContents(path, out string text))
         {
             output = JsonConvert.DeserializeObject<T>(text);
             return true;
@@ -129,7 +134,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsArray(string fileName, out string[] output)
     {
-        return ReadFileLines(dataPath + fileName, out output);
+        string path = Path.Combine(dataPath, fileName);
+        return ReadFileLines(path, out output);
     }
 
     /// <summary>
@@ -137,7 +143,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsTexture(string fileName, out Texture2D output)
     {
-        if (!ReadFileBytes(dataPath + fileName, out byte[] bytes))
+        string path = Path.Combine(dataPath, fileName);
+        if (!ReadFileBytes(path, out byte[] bytes))
         {
             output = null;
             return false;
@@ -154,7 +161,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsSprite(string fileName, out Sprite output, SpriteImportOptions options)
     {
-        if (!ReadFileBytes(dataPath + fileName, out byte[] bytes))
+        string path = Path.Combine(dataPath, fileName);
+        if (!ReadFileBytes(path, out byte[] bytes))
         {
             output = null;
             return false;
@@ -183,7 +191,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsVariableSpritesheet(string fileName, Rect[] rects, out Sprite[] output, SpriteImportOptions options)
     {
-        if (!ReadFileBytes(dataPath + fileName, out byte[] bytes))
+        string path = Path.Combine(dataPath, fileName);
+        if (!ReadFileBytes(path, out byte[] bytes))
         {
             output = null;
             return false;
@@ -222,7 +231,8 @@ public class FileHandler
     /// </summary>
     public bool LoadDataAsFixedSpritesheet(string fileName, Vector2 size, out Sprite[] output, SpriteImportOptions options)
     {
-        if (!ReadFileBytes(dataPath + fileName, out byte[] bytes))
+        string path = Path.Combine(dataPath, fileName);
+        if (!ReadFileBytes(path, out byte[] bytes))
         {
             output = null;
             return false;

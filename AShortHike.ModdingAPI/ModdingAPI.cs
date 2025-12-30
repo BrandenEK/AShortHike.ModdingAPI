@@ -11,6 +11,11 @@ public class ModdingAPI : ShortHikeMod
 
     private TextMeshProUGUI _modText = null;
 
+    protected internal override void OnInitialize()
+    {
+        LogHandler.Warning($"Data path: {FileHandler.DataPath}");
+    }
+
     protected internal override void OnLevelLoaded(string level)
     {
         if (level == "TitleScene" && _modText == null)
